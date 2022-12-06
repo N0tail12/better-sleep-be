@@ -5,7 +5,7 @@ const CONST = require("../../constants/index");
 const AuthorRepository = require("../../repository/author.repository");
 
 const login = async (req, res) => {
-  const { username, password } = req.query;
+  const { username, password } = req.body;
   const users = await AuthorRepository.getUserByEmail(username);
   if (!users.length) return res.status(401).json({ error: "User does not exist" });
   const user = users[0];
