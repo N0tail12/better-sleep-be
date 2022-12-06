@@ -32,25 +32,25 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
-  expressJwt({ secret: process.env.JWT_SECRET }).unless({
-    path: [
-      "/api/login"
-      // "/api/password/forgot",
-      // "/api/password/reset",
-      // "/api/asset-management/asset/bind-confirm",
-      // "/api/v2/jira-project/projects",
-      // "/api/v2/timesheet",
-      // /^\/api\/v2\/files\/.*/
-    ]
-  })
-);
+// app.use(
+//   expressJwt({ secret: process.env.JWT_SECRET }).unless({
+//     path: [
+//       "/api/login"
+//       // "/api/password/forgot",
+//       // "/api/password/reset",
+//       // "/api/asset-management/asset/bind-confirm",
+//       // "/api/v2/jira-project/projects",
+//       // "/api/v2/timesheet",
+//       // /^\/api\/v2\/files\/.*/
+//     ]
+//   })
+// );
 
 // Router
 app.use(require("./routes"));
 
 // Error handler, send stacktrace only during development
-app.use(errorHandling);
+// app.use(errorHandling);
 
 // Run
 const PORT = process.env.PORT || 8080;
