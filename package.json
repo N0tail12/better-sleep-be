@@ -58,7 +58,9 @@
     "pg-promise": "^10.7.3",
     "pretty-error": "^2.1.1",
     "puppeteer": "^15.1.1",
-    "response-format": "^1.2.0"
+    "response-format": "^1.2.0",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.6.0"
   },
   "bugs": {
     "url": "https://github.com/N0tail12/better-sleep-be/issues"

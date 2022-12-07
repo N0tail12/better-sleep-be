@@ -2,10 +2,21 @@ const DashboardRepository = require("../../repository/getDashboard");
 const GoalTimeRepository = require("../../repository/getDashboard");
 const Formatter = require("response-format");
 
-const getDashboard = async (req, res) => {
+const GetDashboardReport = async (req, res) => {
   try {
     let id = req.user.user_id;
-    let data = await DashboardRepository.getDashboardDetail(id);
+    let data = await DashboardRepository.getDashboardReport(id);
+    res.json(Formatter.success(null, data));
+  } catch (error) {
+    console.log(error);
+    res.json(Formatter.badRequest(error));
+  }
+};
+
+const GetGoal = async (req, res) => {
+  try {
+    let id = req.user.user_id;
+    let data = await DashboardRepository.getGoal(id);
     res.json(Formatter.success(null, data));
   } catch (error) {
     console.log(error);
@@ -27,6 +38,7 @@ const updateGoalTime = async (req, res) => {
 };
 
 module.exports = {
-  getDashboard,
-  updateGoalTime
+  GetDashboardReport,
+  updateGoalTime,
+  GetGoal
 };
