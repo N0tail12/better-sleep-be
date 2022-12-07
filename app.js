@@ -6,8 +6,33 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const expressJwt = require("express-jwt");
 const errorHandling = require("./middleware/error");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("swagger-jsdoc");
 require("pretty-error").start();
 if (!process.env.PORT) require("dotenv-flow").config({ path: "environments/" });
+
+const option = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Better sleep",
+      version: "1.0.0"
+    },
+    server: [{ api: "http://localhost:3200/" }],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: ["http", "https"],
+          scheme: "bearer",
+          bearerFormat: "JWT"
+        }
+      }
+    }
+  },
+  apis: [`${__dirname}/routes/api/author.api.js`, `${__dirname}/routes/api/getDashboard.api.js`]
+};
+
+const swaggerSpec = swaggerDocument(option);
 
 // Middleware
 app.use(express.static("public"));
@@ -31,6 +56,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(
   expressJwt({ secret: process.env.JWT_SECRET }).unless({
