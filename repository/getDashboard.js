@@ -1,7 +1,13 @@
 const knex = require("../config/database");
-
+const moment = require("moment");
 const getDashboardReport = id => {
-  return knex("report").select("*").where({ user_id: id });
+  let weekStart = moment().startOf("isoWeek");
+  let weekEnd = moment().endOf("isoWeek");
+  return knex("report")
+    .select("*")
+    .where({ user_id: id })
+    .andWhere("start_time", ">=", weekStart)
+    .andWhere("end_time", "<=", weekEnd);
 };
 
 const getGoal = id => {
