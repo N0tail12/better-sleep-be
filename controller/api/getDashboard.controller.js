@@ -49,7 +49,6 @@ const updateGoalTime = async (req, res) => {
 const InsertReport = async (req, res) => {
   try {
     let payload = req.body;
-    console.log(payload);
     payload.user_id = req.user.user_id;
     let data = await DashboardRepository.insertReport(payload);
     res.json(Formatter.success(null, data));
