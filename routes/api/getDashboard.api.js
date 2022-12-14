@@ -77,5 +77,7 @@ router.route("/goal").get(DashboardController.GetGoal);
  *        description: Update Goal
  */
 router.route("/update-goal/:id").put(DashboardController.updateGoalTime);
+router.route("/sleeptime").get(DashboardController.GetSleepTime);
+router.route("/report").post(DashboardController.InsertReport);
 
 module.exports = router;
