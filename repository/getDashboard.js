@@ -29,12 +29,22 @@ const updateGoalTime = payload => {
 };
 
 const insertReport = payload => {
-  return knex("report").insert({
-    user_id: payload.user_id,
-    start_time: payload.start_time,
-    end_time: payload.end_time,
-    date: moment(payload.end_time).format("YYYY-MM-DD")
-  });
+  if (!payload.statues) {
+    return knex("report").insert({
+      user_id: payload.user_id,
+      start_time: payload.start_time,
+      end_time: payload.start_time,
+      date: moment(payload.start_time).format("YYYY-MM-DD")
+    });
+  } else {
+    return knex("report")
+      .update({
+        end_time: payload.end_time,
+        date: moment(payload.end_time).format("YYYY-MM-DD")
+      })
+      .where({ user_id: payload.user_id })
+      .andWhere({ start_time: payload.start_time });
+  }
 };
 
 module.exports = {
