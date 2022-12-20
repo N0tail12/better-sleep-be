@@ -29,7 +29,7 @@ const updateGoalTime = payload => {
 };
 
 const insertReport = payload => {
-  if (!payload.statues) {
+  if (payload.status) {
     return knex("report").insert({
       user_id: payload.user_id,
       start_time: payload.start_time,
