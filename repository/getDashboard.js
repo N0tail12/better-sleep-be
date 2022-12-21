@@ -35,13 +35,13 @@ const insertReport = payload => {
       user_id: payload.user_id,
       start_time: payload.start_time,
       end_time: payload.start_time,
-      date: moment(payload.start_time).format("YYYY-MM-DD")
+      date: moment(payload.start_time).toString()
     });
   } else {
     return knex("report")
       .update({
         end_time: payload.end_time,
-        date: moment(payload.end_time).format("YYYY-MM-DD")
+        date: moment(payload.end_time).format("YYYY-MM-DD").toString()
       })
       .where({ user_id: payload.user_id })
       .andWhere({ start_time: payload.start_time });
