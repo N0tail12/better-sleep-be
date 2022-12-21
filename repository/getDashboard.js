@@ -4,11 +4,12 @@ const moment = require("moment");
 const getDashboardReport = id => {
   let weekStart = moment().startOf("isoWeek");
   let weekEnd = moment().endOf("isoWeek");
+  console.log(weekStart, weekEnd);
   return knex("report")
     .select("*")
     .where({ user_id: id })
-    .andWhere("start_time", ">=", weekStart)
-    .andWhere("end_time", "<=", weekEnd);
+    .andWhere("date", ">=", weekStart.format("YYYY-MM-DD"))
+    .andWhere("date", "<=", weekEnd.format("YYYY-MM-DD"));
 };
 
 const getGoal = id => {
