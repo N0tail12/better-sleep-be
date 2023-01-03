@@ -62,7 +62,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(
   expressJwt({ secret: process.env.JWT_SECRET }).unless({
     path: [
-      "/api/login"
+      "/api/login",
+      "/api/signup"
       // "/api/password/forgot",
       // "/api/password/reset",
       // "/api/asset-management/asset/bind-confirm",

@@ -1,5 +1,6 @@
 const UserRepository = require("../../repository/user.repository");
 const Formatter = require("response-format");
+const bcrypt = require("bcryptjs");
 
 const GetUserInfo = async (req, res) => {
   try {
@@ -24,7 +25,26 @@ const UpdateStatus = async (req, res) => {
   }
 };
 
+const CreateNewUser = async (req, res) => {
+  const payload = req.body.payload;
+  console.log(payload);
+  const users = await UserRepository.checkExist(payload.email);
+  if (users.length) {
+    res.json(Formatter.badRequest("User already in use"));
+  } else {
+    const salt = bcrypt.genSaltSync(10);
+    let hashPassword = bcrypt.hashSync(payload.password, salt);
+    try {
+      let data = await UserRepository.createNewAccount(payload, hashPassword);
+      res.json(Formatter.success(null, data));
+    } catch (error) {
+      res.json(Formatter.badRequest(error));
+    }
+  }
+};
+
 module.exports = {
   GetUserInfo,
-  UpdateStatus
+  UpdateStatus,
+  CreateNewUser
 };
