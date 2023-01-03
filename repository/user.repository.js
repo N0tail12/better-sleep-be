@@ -14,7 +14,27 @@ const updateStatus = (id, status) => {
     .where({ user_id: id });
 };
 
+const checkExist = email => {
+  return knex.select().from("user").where({ email: email });
+};
+
+const createNewAccount = (payload, hashPassword) => {
+  console.log(payload, hashPassword);
+  return knex
+    .insert({
+      fullname: payload.fullname,
+      email: payload.email,
+      image: payload.image,
+      age: payload.age,
+      password: hashPassword,
+      status: 0
+    })
+    .into("user");
+};
+
 module.exports = {
   getUserInfo,
-  updateStatus
+  updateStatus,
+  checkExist,
+  createNewAccount
 };
