@@ -4,7 +4,6 @@ const moment = require("moment");
 const getDashboardReport = id => {
   let weekStart = moment().startOf("isoWeek");
   let weekEnd = moment().endOf("isoWeek");
-  console.log(weekStart, weekEnd);
   return knex("report")
     .select("*")
     .where({ user_id: id })
