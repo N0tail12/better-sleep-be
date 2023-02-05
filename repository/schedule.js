@@ -38,11 +38,9 @@ const deleteSchedule = id => {
 };
 
 const updateSchedules = payload => {
-  console.log(payload);
   let dayDiff = moment(payload.end_day).diff(payload.start_day, "days");
-  console.log(dayDiff);
   let data = [];
-  for (let i = 0; i < dayDiff; ++i) {
+  for (let i = -1; i < dayDiff; ++i) {
     let date_start = moment(payload.start_day).add(i, "days").format("YYYY-MM-DD");
     let date_end = moment(date_start).add(1, "days").format("YYYY-MM-DD");
     let goal_start = moment(date_start + " " + payload.start_time);
@@ -51,7 +49,7 @@ const updateSchedules = payload => {
       start_time: goal_start,
       end_time: goal_end,
       text: payload.text ? payload.text : "",
-      isGoal: true,
+      isGoal: payload.isGoal,
       date: moment(goal_end).format("YYYY-MM-DD"),
       user_id: payload.user_id
     });

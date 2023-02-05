@@ -31,20 +31,23 @@ const updateGoalTime = payload => {
 
 const insertReport = payload => {
   if (payload.status) {
-    return knex("report").insert({
-      user_id: payload.user_id,
-      start_time: payload.start_time,
-      end_time: payload.start_time,
-      date: moment(payload.start_time).toString()
-    });
+    return knex("schedule")
+      .insert({
+        user_id: payload.user_id,
+        start_time: payload.start_time,
+        end_time: payload.start_time,
+        date: moment(payload.start_time).format("YYYY-MM-DD").toString(),
+        text: payload.text ? payload.text : "",
+        isGoal: false
+      })
+      .returning("id");
   } else {
     return knex("report")
       .update({
         end_time: payload.end_time,
         date: moment(payload.end_time).format("YYYY-MM-DD").toString()
       })
-      .where({ user_id: payload.user_id })
-      .andWhere({ start_time: payload.start_time });
+      .where({ id: payload.id });
   }
 };
 
