@@ -42,7 +42,7 @@ const insertReport = payload => {
       })
       .returning("id");
   } else {
-    return knex("report")
+    return knex("schedule")
       .update({
         end_time: payload.end_time,
         date: moment(payload.end_time).format("YYYY-MM-DD").toString()
