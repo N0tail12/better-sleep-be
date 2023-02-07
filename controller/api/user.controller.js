@@ -43,8 +43,19 @@ const CreateNewUser = async (req, res) => {
   }
 };
 
+const AddDefaultGoal = async (req, res) => {
+  try {
+    let user_id = req.user.user_id;
+    let data = await UserRepository.addDefaultGoal(user_id);
+    res.json(Formatter.success(null, data));
+  } catch (error) {
+    res.json(Formatter.badRequest(error));
+  }
+};
+
 module.exports = {
   GetUserInfo,
   UpdateStatus,
-  CreateNewUser
+  CreateNewUser,
+  AddDefaultGoal
 };

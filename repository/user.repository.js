@@ -19,7 +19,6 @@ const checkExist = email => {
 };
 
 const createNewAccount = (payload, hashPassword) => {
-  console.log(payload, hashPassword);
   return knex
     .insert({
       fullname: payload.fullname,
@@ -32,9 +31,14 @@ const createNewAccount = (payload, hashPassword) => {
     .into("user");
 };
 
+const addDefaultGoal = user_id => {
+  return knex.insert({ user_id: user_id, start_time: "22:00", end_time: "06:00", date: "2023-01-01" }).into("goal");
+};
+
 module.exports = {
   getUserInfo,
   updateStatus,
   checkExist,
-  createNewAccount
+  createNewAccount,
+  addDefaultGoal
 };
