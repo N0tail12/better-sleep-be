@@ -21,14 +21,16 @@ const addSchedule = payload => {
 };
 
 const updateSchedule = (payload, id) => {
-  return knex("schedule").update({
-    start_time: payload.start_time,
-    end_time: payload.end_time,
-    text: payload.text ? payload.text : "",
-    isGoal: payload.isGoal,
-    date: moment(payload.end_time).format("YYYY-MM-DD"),
-    user_id: payload.user_id
-  });
+  return knex("schedule")
+    .update({
+      start_time: payload.start_time,
+      end_time: payload.end_time,
+      text: payload.text ? payload.text : "",
+      isGoal: payload.isGoal,
+      date: moment(payload.end_time).format("YYYY-MM-DD"),
+      user_id: payload.user_id
+    })
+    .where({ id: id });
 };
 
 const deleteSchedule = id => {
